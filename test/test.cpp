@@ -14,20 +14,67 @@ TEST_CASE("Options")
 		REQUIRE(options::parse(1, argv) == std::make_tuple(Order::ascending, Filter::all, Case::sensitive, (char *) nullptr));
 	}
 
+
 	SECTION("reversed")
 	{
+		SECTION("reversed with file")
+		{
+			char * argv[] = { "line-sort", "-r","subor.txt" };
+			auto options = options::parse(3, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::all, Case::sensitive, argv[2]));
+
+		}
+		SECTION("reversed without file")
+		{
+			char * argv[] = { "line-sort", "-r" };
+			auto options = options::parse(2, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::all, Case::sensitive, (char *) nullptr));
+		}
 	}
 
 	SECTION("unique")
 	{
+		SECTION("unique with file") 
+		{
+			char * argv[] = { "line-sort","-u","subor.txt" };
+			auto options = options::parse(3, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::ascending, Filter::unique, Case::sensitive, argv[2]));
+		}
+		SECTION("unique without file")
+		{
+			char * argv[] = { "line-sort","-u" };
+			auto options = options::parse(2, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::ascending, Filter::unique, Case::sensitive, (char *) nullptr));
+		}
+		
 	}
 
 	SECTION("ignore case")
 	{
+		SECTION("ignore case with file")
+		{
+			char * argv[] = { "line-sort","-i","subor.txt" };
+			auto options = options::parse(3, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::ascending, Filter::all, Case::ignore, argv[2]));
+		}
+
+		SECTION("ignore case without file")
+		{
+			char * argv[] = { "line-sort","-i" };
+			auto options = options::parse(2, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::ascending, Filter::all, Case::ignore, (char *) nullptr));
+		}
 	}
 
 	SECTION("multiple")
 	{
+
 	}
 }
 
