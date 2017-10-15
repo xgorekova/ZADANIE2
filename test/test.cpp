@@ -75,6 +75,79 @@ TEST_CASE("Options")
 	SECTION("multiple")
 	{
 
+		SECTION("reversed and unique with file")
+		{
+			char * argv[] = { "line-sort","-r","-u","subor.txt"};
+			auto options = options::parse(4, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::unique, Case::sensitive,argv[3]));
+
+		}
+	
+		SECTION("reversed and unique without file")
+		{
+			char * argv[] = { "line-sort","-r","-u" };
+			auto options = options::parse(3, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::unique, Case::sensitive, (char *) nullptr));
+
+		}
+
+
+		SECTION("reversed and ignore case with file")
+		{
+			char * argv[] = { "line-sort","-r","-i","subor.txt" };
+			auto options = options::parse(4, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::all, Case::ignore, argv[3]));
+
+		}
+
+		SECTION("reversed and ignore without file")
+		{
+			char * argv[] = { "line-sort","-r","-i" };
+			auto options = options::parse(3, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::all, Case::ignore, (char *) nullptr));
+
+		}
+
+		SECTION("unique and ignore case with file")
+		{
+			char * argv[] = { "line-sort","-u","-i","subor.txt" };
+			auto options = options::parse(4, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::ascending, Filter::unique, Case::ignore, argv[3]));
+
+		}
+
+		SECTION("unique and ignore without file")
+		{
+			char * argv[] = { "line-sort","-u","-i" };
+			auto options = options::parse(3, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::ascending, Filter::unique, Case::ignore, (char *) nullptr));
+
+		}
+
+
+		SECTION("reversed and unique and ignore case with file")
+		{
+			char * argv[] = { "line-sort","-r","-u","-i ","subor.txt"};
+			auto options = options::parse(5, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::unique, Case::ignore, argv[4]));
+
+		}
+
+		SECTION("reversed and unique and ignore case without file")
+		{
+			char * argv[] = { "line-sort","-r","-u","-i " };
+			auto options = options::parse(4, argv);
+			//REQUIRE(options == true);
+			REQUIRE(options.value() == std::make_tuple(Order::descending, Filter::unique, Case::ignore, (char *)nullptr));
+
+		}
 	}
 }
 
