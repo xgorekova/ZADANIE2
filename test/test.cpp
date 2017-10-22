@@ -157,7 +157,7 @@ TEST_CASE("Options")
 	{
 		char * argv[] = { "line-sort", "subor.txt", "-u" };
 		auto options = options::parse(_countof(argv), argv);
-		REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 	}
 
 
@@ -168,7 +168,7 @@ TEST_CASE("Options")
 			
 			char * argv[] = { "line-sort", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 
 
@@ -176,7 +176,7 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 	}
 
@@ -186,14 +186,14 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-0", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-0", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 	}
 
@@ -203,14 +203,14 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-0", "-u", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-0", "-u" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 	}
 
@@ -220,14 +220,14 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-u", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-u", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 	}
 
@@ -237,17 +237,17 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-0", "-0", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-0", "-0", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
 		}
 	}
-
+	
 	
 
 }

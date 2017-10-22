@@ -11,7 +11,6 @@ std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, 
 	Case compare{ Case::sensitive };
 	char * input{ nullptr };
 	int RUI[3] = { 0,0,0 };
-	int i;
 	int poc = 0;
 	int iny = 0;
 
@@ -22,7 +21,7 @@ std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, 
 
 
 
-	for (i = 1; i < 4; i++)
+	for (int i = 1; i < 4; i++)
 	{
 
 		if (argv[i] == std::string("-r"))
@@ -64,8 +63,4 @@ std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, 
 		Order pom1; Filter pom2; Case pom3; char * pom4 = "";
 		return std::make_tuple(pom1, pom2, pom3, pom4);
 	}
-	
-
-
-
 }
