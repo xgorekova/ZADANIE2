@@ -149,6 +149,107 @@ TEST_CASE("Options")
 
 		}
 	}
+
+
+
+	Order pom1; Filter pom2; Case pom3; char * pom4 = "";
+	SECTION("option behind file")
+	{
+		char * argv[] = { "line-sort", "subor.txt", "-u" };
+		auto options = options::parse(_countof(argv), argv);
+		REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+	}
+
+
+	SECTION("one bad option")
+	{
+		SECTION("with file")
+		{
+			
+			char * argv[] = { "line-sort", "-0", "subor.txt" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+
+
+		SECTION("without file")
+		{
+			char * argv[] = { "line-sort", "-0" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+	}
+
+	SECTION("two bad options")
+	{
+		SECTION("with file")
+		{
+			char * argv[] = { "line-sort", "-0", "-0", "subor.txt" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+
+		SECTION("without file")
+		{
+			char * argv[] = { "line-sort", "-0", "-0" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+	}
+
+	SECTION("one bad one right option")
+	{
+		SECTION("with file")
+		{
+			char * argv[] = { "line-sort", "-0", "-u", "subor.txt" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+
+		SECTION("without file")
+		{
+			char * argv[] = { "line-sort", "-0", "-u" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+	}
+
+	SECTION("one right one bad option")
+	{
+		SECTION("with file")
+		{
+			char * argv[] = { "line-sort", "-u", "-0", "subor.txt" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+
+		SECTION("without file")
+		{
+			char * argv[] = { "line-sort", "-u", "-0" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+	}
+
+	SECTION("three bad options")
+	{
+		SECTION("with file")
+		{
+			char * argv[] = { "line-sort", "-0", "-0", "-0", "subor.txt" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+
+		SECTION("without file")
+		{
+			char * argv[] = { "line-sort", "-0", "-0", "-0" };
+			auto options = options::parse(_countof(argv), argv);
+			REQUIRE(options.value() == make_tuple(pom1, pom2, pom3, pom4));
+		}
+	}
+
+	
+
 }
 
 namespace
