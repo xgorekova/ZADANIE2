@@ -21,7 +21,7 @@ std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, 
 
 
 
-	for (int i = 1; i < 4; i++)
+	for (int i = 1; i < 4 && i < argc; i++)
 	{
 
 		if (argv[i] == std::string("-r"))
@@ -59,8 +59,6 @@ std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, 
 	}
 	else
 	{
-
-		Order pom1; Filter pom2; Case pom3; char * pom4 = "";
-		return std::make_tuple(pom1, pom2, pom3, pom4);
+		return {};
 	}
 }

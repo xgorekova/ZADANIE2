@@ -151,32 +151,35 @@ TEST_CASE("Options")
 	}
 
 
-
-	Order pom1; Filter pom2; Case pom3; char * pom4 = "";
-	SECTION("option behind file")
+	SECTION("wrong position of argument ")
 	{
-		char * argv[] = { "line-sort", "subor.txt", "-u" };
+		char * argv[] = { "line-sort", "subor.txt" , "-u" };
 		auto options = options::parse(_countof(argv), argv);
-		REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+		REQUIRE_FALSE(options.has_value());
 	}
+	SECTION("wrong position of arguments")
+	{
+		char * argv[] = { "line-sort", "subor.txt" , "-u" ,"-i" };
+		auto options = options::parse(_countof(argv), argv);
+		REQUIRE_FALSE(options.has_value());
+	}
+
 
 
 	SECTION("one bad option")
 	{
 		SECTION("with file")
 		{
-			
 			char * argv[] = { "line-sort", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
-
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 	}
 
@@ -186,14 +189,14 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-0", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-0", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 	}
 
@@ -203,14 +206,14 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-0", "-u", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-0", "-u" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 	}
 
@@ -220,14 +223,14 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-u", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-u", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 	}
 
@@ -237,14 +240,14 @@ TEST_CASE("Options")
 		{
 			char * argv[] = { "line-sort", "-0", "-0", "-0", "subor.txt" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 
 		SECTION("without file")
 		{
 			char * argv[] = { "line-sort", "-0", "-0", "-0" };
 			auto options = options::parse(_countof(argv), argv);
-			REQUIRE(options.value() == std::make_tuple(pom1, pom2, pom3, pom4));
+			REQUIRE_FALSE(options.has_value());
 		}
 	}
 	
@@ -294,22 +297,43 @@ TEST_CASE("Sorting")
 
 	SECTION("ascending - unique")
 	{
+		std::ostringstream output{};
+
+		REQUIRE(sort::process(Order::ascending, Filter::all, Case::sensitive, data::empty, output) == true);
+		REQUIRE(output.str() == "");
 	}
 
 	SECTION("ascending - unique - ignore case")
 	{
+		std::ostringstream output{};
+
+		REQUIRE(sort::process(Order::ascending, Filter::all, Case::sensitive, data::empty, output) == true);
+		REQUIRE(output.str() == "");
 	}
 
 	SECTION("descending")
 	{
+		std::ostringstream output{};
+
+		REQUIRE(sort::process(Order::ascending, Filter::all, Case::sensitive, data::empty, output) == true);
+		REQUIRE(output.str() == "");
 	}
 
 	SECTION("descending - unique")
 	{
+		std::ostringstream output{};
+
+		REQUIRE(sort::process(Order::ascending, Filter::all, Case::sensitive, data::empty, output) == true);
+		REQUIRE(output.str() == "");
 	}
 
 	SECTION("descending - unique - ignore case")
 	{
+		std::ostringstream output{};
+
+		REQUIRE(sort::process(Order::ascending, Filter::all, Case::sensitive, data::empty, output) == true);
+		REQUIRE(output.str() == "");
 	}
 }
 
+//odovzdat 5. novembra: unit testy, sortovanie, funkcnu aplikaciu... pozriet kniznicu google
