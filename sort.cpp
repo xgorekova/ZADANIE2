@@ -11,8 +11,6 @@
 #include <utility>
 
 
-
-
 namespace
 {
 	struct Line : public std::string {};
@@ -23,15 +21,26 @@ namespace
 	}
 }
 
-bool porovnaj(const std::string& a, const std::string& b)
+bool LessCaseSensitive(const std::string& a, const std::string& b)
 {
-	unsigned int sz = a.size();
-	if (b.size() != sz)
-		return false;
-	for (unsigned int i = 0; i < sz; ++i)
-		if (tolower(a[i]) != tolower(b[i]))
-			return false;
-	return true;
+	for (const char * ptrA = a.c_str(), const char * ptrB = b.c_str();; ++ptrA, ++ptrB)
+	{
+		if (*ptrA != *ptrB || !*ptrA || !*ptrB) return *ptrA < *ptrB;
+
+	}
+	return false;
+}
+
+
+bool LessCaseInsensitive(const std::string& a, const std::string& b)
+{
+
+	for (const char * ptrA = a.c_str(), const char * ptrB = b.c_str();; ++ptrA, ++ptrB)
+	{
+		if (*ptrA != *ptrB || !*ptrA || !*ptrB) return *ptrA < *ptrB; //
+
+	}
+	return false;
 }
 
 
@@ -47,7 +56,7 @@ bool sort::process(Order order, Filter filter, Case compare, std::istream & inpu
 
 	if (order == Order::descending) {
 		if (ignorovat)
-			std::sort(lines.begin(), lines.end(), porovnaj);
+			std::sort(lines.begin(), lines.end(), LessCaseInsensitive);
 		else
 			std::sort(lines.begin(), lines.end());
 
@@ -73,5 +82,4 @@ bool sort::process(Order order, Filter filter, Case compare, std::istream & inpu
 	
 	return true;
 }
-
 
