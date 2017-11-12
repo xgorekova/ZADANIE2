@@ -18,7 +18,10 @@ int main(int argc, char * argv[])
 	Order order;
 	Filter filter;
 	Case compare;
+//	Filterlines filterlines,
+
 	char * file;
+//	std::tie(order, filter, compare, filterlines, file) = options.value();
 
 	std::tie(order, filter, compare, file) = options.value();
 
@@ -35,6 +38,7 @@ int main(int argc, char * argv[])
 	}
 
 	std::istream & input = file ? fs : std::cin;
+//	if (!sort::process(order, filter, compare,filterlines, input, std::cout))
 
 	if (!sort::process(order, filter, compare, input, std::cout))
 	{

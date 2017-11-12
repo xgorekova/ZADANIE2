@@ -1,9 +1,13 @@
 #include "options.h"
 #include <string>
+#include <iostream>
+#include <fstream>
+#include <ostream>
 
 
-std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, char * argv[])
+std::optional<std::tuple<Order, Filter, Case,  char *>> options::parse(int argc, char * argv[])
 {
+
 	Order order{ Order::ascending };
 	Filter filter{ Filter::all };
 	Case compare{ Case::sensitive };
@@ -35,6 +39,11 @@ std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, 
 				return {};
 			compare = Case::ignore;
 		}
+		else if (arg == "-e")
+		{
+			filter = Filter::whitespacelines;
+
+		}
 		else
 		{
 			return {};
@@ -51,5 +60,5 @@ std::optional<std::tuple<Order, Filter, Case, char *>> options::parse(int argc, 
 		return {};
 	}
 
-	return std::make_tuple(order, filter, compare, input);
+	return std::make_tuple(order, filter, compare,input);
 }
